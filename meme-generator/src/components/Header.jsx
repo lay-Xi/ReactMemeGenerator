@@ -3,9 +3,10 @@ import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 export default function Header() {
   return (
-    <div>
-      <FontAwesomeIcon icon={solid('face-grin')} />
-      Meme Generator
-    </div>
+    <nav>
+      <FontAwesomeIcon className='nav--icon' size='2x' icon={solid('face-grin')} />
+      &nbsp; &nbsp;
+      <h1 className='nav--title'>Meme Generator</h1>
+    </nav>
   );
 }
