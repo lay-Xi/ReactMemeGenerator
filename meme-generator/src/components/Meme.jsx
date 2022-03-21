@@ -4,13 +4,19 @@ import memeData from '../memeData.js';
 import { useState } from 'react';
 
 export default function Meme() {
-  const [imageUrl, setImage] = useState('');
+  const [meme, setMeme] = useState({
+    topText: '',
+    bottomText: '',
+    randomImage:'http://i.imgflip.com/1bij.jpg'
+  });
+
+  const [allMemeImages, setAllMemeImages] = useState(memeData);
 
   function getRandomImage() {
-    const memeArray = memeData.data.memes;
+    const memeArray = allMemeImages.data.memes;
     const randomNumber = Math.floor(Math.random() * memeArray.length);
 
-    setImage(memeArray[randomNumber].url);
+    setMeme({...meme, randomImage: memeArray[randomNumber].url});
   }
 
   return (
@@ -23,7 +29,7 @@ export default function Meme() {
           <FontAwesomeIcon icon={solid('image')} />
         </button>
       </div>
-      <img className='meme--image' src={imageUrl} alt='' />
+      <img className='meme--image' src={meme.randomImage} alt='' />
     </main>
   );
 }
