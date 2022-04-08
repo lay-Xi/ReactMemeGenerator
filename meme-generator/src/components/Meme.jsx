@@ -21,10 +21,10 @@ export default function Meme() {
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setMeme({
-      ...meme,
+    setMeme((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   }
 
   return (
