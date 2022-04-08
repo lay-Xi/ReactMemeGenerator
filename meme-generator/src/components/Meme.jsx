@@ -7,7 +7,7 @@ export default function Meme() {
   const [meme, setMeme] = useState({
     topText: '',
     bottomText: '',
-    randomImage:'http://i.imgflip.com/1bij.jpg'
+    randomImage: 'http://i.imgflip.com/1bij.jpg',
   });
 
   const [allMemeImages, setAllMemeImages] = useState(memeData);
@@ -16,7 +16,7 @@ export default function Meme() {
     const memeArray = allMemeImages.data.memes;
     const randomNumber = Math.floor(Math.random() * memeArray.length);
 
-    setMeme({...meme, randomImage: memeArray[randomNumber].url});
+    setMeme({ ...meme, randomImage: memeArray[randomNumber].url });
   }
 
   return (
@@ -29,7 +29,11 @@ export default function Meme() {
           <FontAwesomeIcon icon={solid('image')} />
         </button>
       </div>
-      <img className='meme--image' src={meme.randomImage} alt='' />
+      <div className='meme'>
+        <img className='meme--image' src={meme.randomImage} alt='' />
+        <h2 className='meme--text top'>One does not simply</h2>
+        <h2 className='meme--text bottom'>Walk into Mordor</h2>
+      </div>
     </main>
   );
 }
