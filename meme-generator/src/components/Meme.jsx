@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
-import memeData from '../memeData.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Meme() {
   const [meme, setMeme] = useState({
@@ -9,13 +8,18 @@ export default function Meme() {
     bottomText: '',
     randomImage: 'http://i.imgflip.com/1bij.jpg',
   });
-  const [allMemeImages, setAllMemeImages] = useState(memeData);
+  const [allMeme, setAllMeme] = useState([]);
 
-  function getRandomImage() {
-    const memeArray = allMemeImages.data.memes;
-    const randomNumber = Math.floor(Math.random() * memeArray.length);
+  useEffect(() =>
+    fetch('https://api.imgflip.com/get_memes')
+      .then((res) => res.json())
+      .then((data) => setAllMeme(data.data.memes))
+  , []);
 
-    setMeme({ ...meme, randomImage: memeArray[randomNumber].url });
+  function getMemeImage() {
+    const randomNumber = Math.floor(Math.random() * allMeme.length);
+
+    setMeme({ ...meme, randomImage: allMeme[randomNumber].url });
   }
 
   function handleChange(event) {
@@ -44,7 +48,7 @@ export default function Meme() {
           onChange={handleChange}
           value={meme.bottomText}
         />
-        <button className='form--button' onClick={getRandomImage}>
+        <button className='form--button' onClick={getMemeImage}>
           Get a new meme image &nbsp;
           <FontAwesomeIcon icon={solid('image')} />
         </button>
